@@ -1,0 +1,3 @@
+# Project exclude paths
+/src/main/java/com/oschepich/spring_security/resources/
+/target/
