@@ -22,4 +22,5 @@ public interface UserService<T>{
     T getRoleById(Long id);
 
     UserDetails loadUserByUsername(String s) throws UsernameNotFoundException;
+
 }

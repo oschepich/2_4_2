@@ -45,16 +45,18 @@ public class UserDaoImpl implements UserDao {
     public User show(Long id) {
         return entityManager.find(User.class, id);
     }
+
 // метод удаления пользователя
     @Override
     public void deleteUser(Long id) {
         User user = entityManager.find(User.class, id);
         entityManager.remove(user);
     }
+
     @Override
     public User getUserByUsername(String username) {
-        String hql = "from User u where u.username = :username";
-        TypedQuery<User> query = entityManager.createQuery(hql, User.class);
+        TypedQuery<User> query = entityManager
+                .createQuery("from User user where user.username = :username", User.class);
         query.setParameter("username", username);
         List<User> userList = query.getResultList();
         return userList.isEmpty() ? null : userList.get(0);
@@ -62,15 +64,15 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void creatUser(User user) {
-        String hql = "from Role r where r.id = 1";
-        TypedQuery<Role> query = entityManager.createQuery(hql, Role.class);
-        List<Role> listRoles = query.getResultList();
-        Role role = listRoles.get(0);
-        user.getRole().add(role);
-        user.setUsername(user.getUsername());
-        user.setEmail(user.getEmail());
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        entityManager.persist(user);
+//        String hql = "from Role r where r.id = 1";
+//        TypedQuery<Role> query = entityManager.createQuery(hql, Role.class);
+//        List<Role> listRoles = query.getResultList();
+//        Role role = listRoles.get(0);
+//        user.getRole().add(role);
+//        user.setUsername(user.getUsername());
+//        user.setEmail(user.getEmail());
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));
+//        entityManager.persist(user);
     }
     @Override
     public Role getRoleById(Long id) {
@@ -78,4 +80,5 @@ public class UserDaoImpl implements UserDao {
         entityManager.detach(role);
         return role;
     }
+
 }

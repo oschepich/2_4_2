@@ -1,7 +1,5 @@
 package com.oschepich.spring_security.config;
 
-
-
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -13,11 +11,9 @@ public class AppInit extends AbstractAnnotationConfigDispatcherServletInitialize
     // Метод, указывающий на класс конфигурации
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return
-                null;
-//                new Class<?>[]{
-//                HibernateConfig.class, SecurityConfig.class
-//        };
+        return new Class<?>[]{
+                HibernateConfig.class, SecurityConfig.class
+        };
     }
 
     // Добавление конфигурации, в которой инициализируем ViewResolver, для корректного отображения html.
@@ -33,18 +29,6 @@ public class AppInit extends AbstractAnnotationConfigDispatcherServletInitialize
     @Override
     protected String[] getServletMappings() {
         return new String[]{"/"};
-    }
-
-    //    фильтр
-    @Override
-    public void onStartup(ServletContext aServletContext) throws ServletException {
-        super.onStartup(aServletContext);
-        registerHiddenFieldFilter(aServletContext);
-    }
-
-    private void registerHiddenFieldFilter(ServletContext aContext) {
-        aContext.addFilter("hiddenHttpMethodFilter",
-                new HiddenHttpMethodFilter()).addMappingForUrlPatterns(null, true, "/*");
     }
 
 }

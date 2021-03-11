@@ -21,21 +21,23 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    UserDetailsService userDetailsService;
-    @Autowired
-    LoginSuccessHandler loginSuccessHandler;
+
+    private final UserDetailsService userDetailsService; // сервис, с помощью которого тащим пользователя
+
+    private final LoginSuccessHandler loginSuccessHandler;  // класс, в котором описана логика перенаправления
+    // пользователей по ролям
 
 
     public SecurityConfig(@Qualifier("userServiceImpl")UserDetailsService userDetailsService,
                           LoginSuccessHandler loginSuccessHandler) {
-        this.userDetailsService = userDetailsService();
+        this.userDetailsService = userDetailsService;
         this.loginSuccessHandler = loginSuccessHandler;
     }
 
+
     @Autowired
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
+    public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder()); // конфигурация для прохождения аутентификации
     }
 
     @Override
@@ -50,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // указываем action с формы логина
                 .loginProcessingUrl("/login")
                 // Указываем параметры логина и пароля с формы логина
-                .usernameParameter("email")
+                .usernameParameter("username")
                 .passwordParameter("password")
                 // даем доступ к форме логина всем
                 .permitAll();
