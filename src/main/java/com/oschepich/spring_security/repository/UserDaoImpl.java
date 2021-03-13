@@ -1,4 +1,4 @@
-package com.oschepich.spring_security.dao;
+package com.oschepich.spring_security.repository;
 
 import com.oschepich.spring_security.model.Role;
 import com.oschepich.spring_security.model.User;
@@ -39,7 +39,6 @@ public class UserDaoImpl implements UserDao {
     user.setEmail(email);
 }
 
-
     // метод нахождения одного пользователя
     @Override
     public User show(Long id) {
@@ -60,25 +59,6 @@ public class UserDaoImpl implements UserDao {
         query.setParameter("username", username);
         List<User> userList = query.getResultList();
         return userList.isEmpty() ? null : userList.get(0);
-    }
-
-    @Override
-    public void creatUser(User user) {
-//        String hql = "from Role r where r.id = 1";
-//        TypedQuery<Role> query = entityManager.createQuery(hql, Role.class);
-//        List<Role> listRoles = query.getResultList();
-//        Role role = listRoles.get(0);
-//        user.getRole().add(role);
-//        user.setUsername(user.getUsername());
-//        user.setEmail(user.getEmail());
-//        user.setPassword(passwordEncoder.encode(user.getPassword()));
-//        entityManager.persist(user);
-    }
-    @Override
-    public Role getRoleById(Long id) {
-        Role role = entityManager.find(Role.class, new Long(id));
-        entityManager.detach(role);
-        return role;
     }
 
 }

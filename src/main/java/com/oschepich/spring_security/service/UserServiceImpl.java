@@ -1,6 +1,7 @@
 package com.oschepich.spring_security.service;
 
-import com.oschepich.spring_security.dao.UserDao;
+import com.oschepich.spring_security.repository.RoleDao;
+import com.oschepich.spring_security.repository.UserDao;
 import com.oschepich.spring_security.model.Role;
 import com.oschepich.spring_security.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,15 @@ import java.util.Set;
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
 
-    @Autowired
-    UserDao userDao;
+    private final UserDao userDao;
+    private final RoleDao roleDao;
 
-       //  метод передачи всего списка user-ов
+    public UserServiceImpl(UserDao userDao, RoleDao roleDao) {
+        this.userDao = userDao;
+        this.roleDao = roleDao;
+    }
+
+    //  метод передачи всего списка user-ов
     @Override
     @Transactional
     public List<User> getAllUser() {
@@ -45,7 +51,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     @Transactional
-    public void creatUser(User user) {userDao.creatUser(user); }
+    public void creatUser(User user) {
+
+        userDao.saveUser(user); }
 
 
     //  метод изменения одного user-а в списка
@@ -65,7 +73,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public Role getRoleById(Long id) {
-        return (Role) this.userDao.getRoleById(id);
+        return (Role) this.roleDao.getRoleById(id);
+    }
+
+    @Override
+    @Transactional
+    public Role getRoleByName(String name) {
+        return roleDao.getRoleByName(name);
+    }
+
+    @Override
+    @Transactional
+    public List<Role> getListRole() {
+        return roleDao.getListRole();
     }
 
     // «Пользователь» – это просто Object. В большинстве случаев он может быть

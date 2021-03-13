@@ -1,5 +1,6 @@
 package com.oschepich.spring_security.service;
 
+import com.oschepich.spring_security.model.Role;
 import com.oschepich.spring_security.model.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,6 +21,11 @@ public interface UserService<T>{
      void deleteUser(Long id);
 
     T getRoleById(Long id);
+
+
+    Role getRoleByName(String name);
+
+    public List<Role> getListRole();
 
     UserDetails loadUserByUsername(String s) throws UsernameNotFoundException;
 
