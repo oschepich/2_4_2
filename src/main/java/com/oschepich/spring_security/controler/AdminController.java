@@ -35,24 +35,23 @@ public class AdminController {
     public ModelAndView getAllUsers(ModelAndView modelAndView) {
         modelAndView.addObject("allUser", userService.getAllUser());
         modelAndView.addObject("user", new User());
-        modelAndView.setViewName("admin.html");
+        modelAndView.setViewName("admin");
         return modelAndView;
     }
-
+    //создаю нового пользователя
     @GetMapping("/new")
     public String addNewUser(Model model) {
-//        model.addAttribute("listRole", userService.getListRole());
         model.addAttribute("user", new User());
         return "admin";
     }
-
+    //создаю нового пользователя
     @PostMapping("/add")
     public String addUser(@ModelAttribute("user") User user, @RequestParam(value = "roleSet") String [] roles) {
         user.setRole(getAddRole(roles));
         userService.saveUser(user);
         return "redirect:/admin";
     }
-
+    //редактирую пользователя
     @GetMapping("/edit/{id}")
     public ModelAndView getUserToEdit(@PathVariable Long id) {
         User user = (User) userService.show(id);
@@ -61,6 +60,7 @@ public class AdminController {
         modelAndView.addObject("user", user);
         return modelAndView;
     }
+    //редактирую пользователя
     @PostMapping("/edit/{id}")
     public String editUser(@ModelAttribute("user") User user,
                            @RequestParam(value = "roleSet") String [] roles) {
@@ -68,25 +68,12 @@ public class AdminController {
         userService.creatUser(user);
         return "redirect:/admin";
     }
-
+    //удаляю пользователя
     @PostMapping("/delete/{id}")
     public String deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return "redirect:/admin";
     }
-//    @GetMapping("/admin/create")
-//    public ModelAndView getFormForCreateUser() {
-//        return new ModelAndView("create");
-//    }
-//
-//    @PostMapping("/admin/create")
-//    public ModelAndView createUser(HttpServletRequest req) {
-//        String username = req.getParameter("name");
-//        String email = req.getParameter("email");
-//        String password = req.getParameter("password");
-//        userService.creatUser(new User(username, email, password));
-//        return new ModelAndView( "redirect:/admin");
-//    }
 
     private Set<Role> getAddRole(String[] roles) {
         Set<Role> roleSet = new HashSet<>();

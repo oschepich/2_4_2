@@ -42,12 +42,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userDao.saveUser(user);
     }
 
-    //    метод обновления пользователя (пригодится на потом - пока не используется)
-    @Override
-    @Transactional
-    public void updateUser(Long id, String name, String email) {
-        userDao.updateUser(id, name, email);
-    }
+    //    метод обновления пользователя (возможно пригодится на потом - пока не используется)
+//    @Override
+//    @Transactional
+//    public void updateUser(Long id, String name, String email) {
+//        userDao.updateUser(id, name, email);
+//    }
 
     @Override
     @Transactional
@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userDao.saveUser(user); }
 
 
-    //  метод изменения одного user-а в списка
+    //  метод нахождения одного user-а в списке
     @Override
     @Transactional
     public User show(Long id) {
@@ -71,10 +71,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
 
-    @Override
-    public Role getRoleById(Long id) {
-        return (Role) this.roleDao.getRoleById(id);
-    }
+//    @Override
+//    public Role getRoleById(Long id) {
+//        return (Role) this.roleDao.getRoleById(id);
+//    }
 
     @Override
     @Transactional

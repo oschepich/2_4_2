@@ -12,7 +12,7 @@ public interface UserService<T>{
 
     void saveUser(User user);
 
-    void updateUser(Long id, String name, String email);
+//    void updateUser(Long id, String name, String email);
 
     void creatUser(User user);
 
@@ -20,7 +20,7 @@ public interface UserService<T>{
 
      void deleteUser(Long id);
 
-    T getRoleById(Long id);
+//    T getRoleById(Long id);
 
 
     Role getRoleByName(String name);

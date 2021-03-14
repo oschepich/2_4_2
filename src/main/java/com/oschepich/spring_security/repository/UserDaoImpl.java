@@ -28,16 +28,17 @@ public class UserDaoImpl implements UserDao {
 // метод обновления и добавления пользователя
     @Override
     public void saveUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         entityManager.merge(user);
     }
 
-//    метод обновления пользователя (пригодится на потом - пока не используется)
-    @Override
-    public void updateUser(Long id, String name, String email) {
-    User user = entityManager.find(User.class, id);
-    user.setUsername(name);
-    user.setEmail(email);
-}
+////    метод обновления пользователя (возможно пригодится на потом - пока не используется)
+//    @Override
+//    public void updateUser(Long id, String name, String email) {
+//    User user = entityManager.find(User.class, id);
+//    user.setUsername(name);
+//    user.setEmail(email);
+//}
 
     // метод нахождения одного пользователя
     @Override
@@ -51,7 +52,7 @@ public class UserDaoImpl implements UserDao {
         User user = entityManager.find(User.class, id);
         entityManager.remove(user);
     }
-
+// метод идентификации юзера по имени
     @Override
     public User getUserByUsername(String username) {
         TypedQuery<User> query = entityManager

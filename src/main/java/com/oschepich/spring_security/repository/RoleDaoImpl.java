@@ -17,14 +17,12 @@ public class RoleDaoImpl implements RoleDao {
     @PersistenceContext
     private EntityManager entityManager;
 
-    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-    @Override
-    public Role getRoleById(Long id) {
-        Role role = entityManager.find(Role.class, new Long(id));
-        entityManager.detach(role);
-        return role;
-    }
+//    @Override
+//    public Role getRoleById(Long id) {
+//        Role role = entityManager.find(Role.class, new Long(id));
+//        entityManager.detach(role);
+//        return role;
+//    }
 
     @Override
     public Role getRoleByName(String name) {

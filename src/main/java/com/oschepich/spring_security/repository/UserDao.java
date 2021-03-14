@@ -9,7 +9,7 @@ public interface UserDao <T>{
 
     void saveUser(User user);
 
-    void updateUser(Long id, String name, String email);
+//    void updateUser(Long id, String name, String email);
 
     T show(Long id);
 
