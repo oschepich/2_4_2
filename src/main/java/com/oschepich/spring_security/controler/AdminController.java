@@ -3,32 +3,30 @@ package com.oschepich.spring_security.controler;
 
 import com.oschepich.spring_security.model.Role;
 import com.oschepich.spring_security.model.User;
+import com.oschepich.spring_security.service.RoleService;
 import com.oschepich.spring_security.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import java.security.Principal;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
 
+    private final UserService userService;
+    private final RoleService roleService;
 
     @Autowired
-    private final UserService userService;
-
-    public AdminController(UserService userService) {
+    public AdminController(UserService userService, RoleService roleService) {
         this.userService = userService;
+        this.roleService = roleService;
     }
+
 
     //вывожу всех пользователей
     @GetMapping
@@ -78,7 +76,7 @@ public class AdminController {
     private Set<Role> getAddRole(String[] roles) {
         Set<Role> roleSet = new HashSet<>();
         for (String role : roles) {
-            roleSet.add(userService.getRoleByName(role));
+            roleSet.add(roleService.getRoleByName(role));
         }
         return roleSet;
     }

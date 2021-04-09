@@ -21,13 +21,11 @@ import java.util.Set;
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserDao userDao;
-    private final RoleDao roleDao;
 
-    public UserServiceImpl(UserDao userDao, RoleDao roleDao) {
+    public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
-        this.roleDao = roleDao;
-    }
 
+    }
     //  метод передачи всего списка user-ов
     @Override
     @Transactional
@@ -51,9 +49,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     @Transactional
-    public void creatUser(User user) {
-
-        userDao.saveUser(user); }
+    public void creatUser(User user) {userDao.saveUser(user); }
 
 
     //  метод нахождения одного user-а в списке
@@ -71,22 +67,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
 
-//    @Override
-//    public Role getRoleById(Long id) {
-//        return (Role) this.roleDao.getRoleById(id);
-//    }
-
-    @Override
-    @Transactional
-    public Role getRoleByName(String name) {
-        return roleDao.getRoleByName(name);
-    }
-
-    @Override
-    @Transactional
-    public List<Role> getListRole() {
-        return roleDao.getListRole();
-    }
+//
 
     // «Пользователь» – это просто Object. В большинстве случаев он может быть
     //  приведен к классу UserDetails.
